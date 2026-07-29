@@ -1,0 +1,15 @@
+[theme]
+# Cor principal (usada em botões, seletores ativos, etc.)
+primaryColor = "#2b689c"
+
+# Cor de fundo da área principal da página
+backgroundColor = "#ffeee0"
+
+# Cor de fundo da barra lateral (sidebar)
+secondaryBackgroundColor = "#d4c4b7"
+
+# Cor do texto principal
+textColor = "#313131"
+
+# Fonte padrão do app ("sans serif", "serif" ou "monospace")
+font = "sans serif"
