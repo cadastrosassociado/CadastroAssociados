@@ -117,29 +117,29 @@ if st.session_state.etapa == 1:
         st.success(f"Confirme o email: {email.lower()}")
 
     #endereço
-    st.subheader("Endereço do Associado")
+    st.subheader("Endereço")
     collogradouro, colnumero,= st.columns([4, 2])
     with collogradouro:
-        logradouro=st.text_input("Digite o logradouro (Rua, Avenida, Travessa, etc):")
+        logradouro=st.text_input("Logradouro (Rua, Avenida, Travessa etc):")
     with colnumero:
-        numero=st.text_input("Digite o número da residência:")
+        numero=st.text_input("Número da residência:")
     colcomplemento, colbairro, colcidade = st.columns([3, 4, 4])
     with colcomplemento:
-        complemento=st.text_input("Digite o complemento:")
+        complemento=st.text_input("Complemento (casa, apartamento etc):")
     with colbairro:
-        bairro=st.text_input("Digite o bairro:")
+        bairro=st.text_input("Bairro:")
     with colcidade:
-        cidade=st.text_input("Digite a cidade:")
+        cidade=st.text_input("Cidade:")
     colestado, colpais, colcep = st.columns([2, 2, 2])
     with colestado:
-        estado=st.text_input("Digite o estado: (Exemplo: RJ):", max_chars=2)
+        estado=st.text_input("Estado: (Exemplo: RJ):", max_chars=2)
     with colpais:
-        pais=st.text_input("Digite o país: (Exemplo: Brasil):")
+        pais=st.text_input("País: (Exemplo: Brasil):")
     with colcep:
-        cep=st.text_input("Digite o CEP (Apenas números):", max_chars=8)
+        cep=st.text_input("CEP (Digite apenas números):", max_chars=8)
 
-    if logradouro and numero and complemento and bairro and cidade and estado and pais and cep:
-        endereco = f"{logradouro}, {numero}, {complemento}, {bairro}, {cidade}-{estado}, {pais}, CEP: {cep[:5]}-{cep[5:]}"
+    if logradouro and numero and bairro and cidade and estado and pais and cep:
+        endereco = f"{logradouro}, {numero}, {complemento}, {bairro}, {cidade}-{estado}, {pais}, CEP: {cep}"
         st.success(f"Confirme o endereço: {endereco.upper()}")
 
     #valor da mensalidade
@@ -167,7 +167,7 @@ if st.session_state.etapa == 1:
     #botão para avançar
     if st.button(
         "**Avançar**",
-        disabled=not (nome and len(cpf_cru) == 11 and dia and mes and ano and ddi and ddd and telefone and logradouro and numero and complemento and bairro and cidade and estado and pais and cep and valor > 0.0 and data_pg and forma_pagamento),
+        disabled=not (nome and len(cpf_cru) == 11 and dia and mes and ano and ddi and ddd and telefone and logradouro and numero and bairro and cidade and estado and pais and cep and valor > 0.0 and data_pg and forma_pagamento),
         type="primary",
         use_container_width=True
         ):
@@ -211,7 +211,7 @@ elif st.session_state.etapa == 2:
             except gspread.exceptions.CellNotFound:
                 associados.append_row(novo_associado)
             st.session_state.etapa=3
-            st.rerun
+            st.rerun()
 
 elif st.session_state.etapa == 3:
     st.title(f"Parabéns {st.session_state.nome}🎉. Você acaba de se tornar um Associado da Mãe do Infinito Amor")
@@ -320,32 +320,32 @@ elif st.session_state.etapa == 4:
     st.subheader("Endereço")
     collogradouro, colnumero,= st.columns([4, 2])
     with collogradouro:
-        logradouro=st.text_input("Digite o logradouro (Rua, Avenida, Travessa, etc):")
+        logradouro=st.text_input("Logradouro (Rua, Avenida, Travessa etc):")
     with colnumero:
-        numero=st.text_input("Digite o número da residência:")
+        numero=st.text_input("Número da residência:")
     colcomplemento, colbairro, colcidade = st.columns([3, 4, 4])
     with colcomplemento:
-        complemento=st.text_input("Digite o complemento:")
+        complemento=st.text_input("Complemento (casa, apartamento etc):")
     with colbairro:
-        bairro=st.text_input("Digite o bairro:")
+        bairro=st.text_input("Bairro:")
     with colcidade:
-        cidade=st.text_input("Digite a cidade:")
+        cidade=st.text_input("Cidade:")
     colestado, colpais, colcep = st.columns([2, 2, 2])
     with colestado:
-        estado=st.text_input("Digite o estado: (Exemplo: RJ):", max_chars=2)
+        estado=st.text_input("Estado: (Exemplo: RJ):", max_chars=2)
     with colpais:
-        pais=st.text_input("Digite o país: (Exemplo: Brasil):")
+        pais=st.text_input("País: (Exemplo: Brasil):")
     with colcep:
-        cep=st.text_input("Digite o CEP (Apenas números):", max_chars=8)
+        cep=st.text_input("CEP (Digite apenas números):", max_chars=8)
 
-    if logradouro and numero and complemento and bairro and cidade and estado and pais and cep:
+    if logradouro and numero and bairro and cidade and estado and pais and cep:
         endereco = f"{logradouro}, {numero}, {complemento}, {bairro}, {cidade}-{estado}, {pais}, CEP: {cep}"
         st.success(f"Confirme o endereço: {endereco.upper()}")
 
     #botão avançar
     if st.button(
             "**Avançar**",
-            disabled=not (nome and len(cpf_cru)==11 and dia and mes and ano and nome_resp and len(cpf_cru_res)==11 and ddi and ddd and telefone and logradouro and numero and complemento and bairro and cidade and estado and pais and cep),
+            disabled=not (nome and len(cpf_cru)==11 and dia and mes and ano and nome_resp and len(cpf_cru_res)==11 and ddi and ddd and telefone and logradouro and numero and bairro and cidade and estado and pais and cep),
             type="primary",
             use_container_width=True
     ):
@@ -387,7 +387,7 @@ elif st.session_state.etapa == 5:
             except gspread.exceptions.CellNotFound:
                 mirim.append_row(novo_associado)
             st.session_state.etapa=3
-            st.rerun
+            st.rerun()
 
 
     
