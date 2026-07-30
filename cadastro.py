@@ -204,12 +204,12 @@ elif st.session_state.etapa == 2:
     with colassociar:
         if st.button("**Me tornar um Associado**", type="primary", use_container_width=True):
             novo_associado = [st.session_state.nome, st.session_state.cpf, st.session_state.data_nascimento, st.session_state.telefone, st.session_state.email, st.session_state.endereco, st.session_state.valor, st.session_state.data_pagamento, st.session_state.forma_pagamento]
-            try:
-                cpf_encontrado = associados.find(st.session_state.cpf)
+            cpf_encontrado = associados.find(st.session_state.cpf)
+            if cpf_encontrado is None:
+                associados.append_row(novo_associado)
+            else:
                 linha_encotrada = cpf_encontrado.row
                 associados.update(f"A{linha_encotrada}:I{linha_encotrada}", [novo_associado])
-            except gspread.exceptions.CellNotFound:
-                associados.append_row(novo_associado)
             st.session_state.etapa=3
             st.balloons()
             st.rerun()
@@ -381,12 +381,12 @@ elif st.session_state.etapa == 5:
     with colassociar:
         if st.button("**Me tornar um Associado Mirim**", type="primary", use_container_width=True):
             novo_associado = [st.session_state.nome, st.session_state.cpf, st.session_state.data_nascimento, st.session_state.nome_resp, st.session_state.cpf_res, st.session_state.telefone, st.session_state.email, st.session_state.endereco]
-            try:
-                cpf_encontrado_mirim = mirim.find(st.session_state.cpf)
+            cpf_encontrado_mirim = mirim.find(st.session_state.cpf)
+            if cpf_encontrado_mirim is None:
+                mirim.append_row(novo_associado)
+            else:
                 linha_encotradam = cpf_encontrado_mirim.row
                 mirim.update(f"A{linha_encotradam}:H{linha_encotradam}", [novo_associado])
-            except gspread.exceptions.CellNotFound:
-                mirim.append_row(novo_associado)
             st.session_state.etapa=3
             st.balloons()
             st.rerun()
