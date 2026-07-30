@@ -212,6 +212,7 @@ elif st.session_state.etapa == 2:
                 associados.append_row(novo_associado)
             st.session_state.etapa=3
             st.rerun()
+            st.balloons()
 
 elif st.session_state.etapa == 3:
     st.title(f"Parabéns {st.session_state.nome}🎉. Você acaba de se tornar um Associado da Mãe do Infinito Amor")
@@ -388,6 +389,7 @@ elif st.session_state.etapa == 5:
                 mirim.append_row(novo_associado)
             st.session_state.etapa=3
             st.rerun()
+            st.balloons()
 
 
     
