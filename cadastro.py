@@ -3,7 +3,6 @@ import gspread
 from google.oauth2.service_account import Credentials
 import streamlit as st
 
-# 1. Montamos as credenciais pegando cada pedacinho seguro do st.secrets
 credenciais_dict = {
     "type": st.secrets["google_credentials"]["type"],
     "project_id": st.secrets["google_credentials"]["project_id"],
@@ -22,19 +21,14 @@ credenciais_dict = {
         "client_x509_cert_url"
     ],
 }
-
-# 2. Definimos o escopo necessário para o Google Sheets e Drive
 escopos = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive",
 ]
-
-# 3. Geramos o crachá oficial usando o dicionário tratado
 creds = Credentials.from_service_account_info(
     credenciais_dict, scopes=escopos
 )
 
-# 4. Conectamos com o gspread de forma blindada
 conta = gspread.authorize(creds)
 planilha = conta.open("PLANILHA DE ASSOCIADOS")
 associados = planilha.worksheet("Associados")
@@ -145,7 +139,7 @@ if st.session_state.etapa == 1:
         cep=st.text_input("Digite o CEP (Apenas números):", max_chars=8)
 
     if logradouro and numero and complemento and bairro and cidade and estado and pais and cep:
-        endereco = f"{logradouro}, {numero}, {complemento}, {bairro}, {cidade}-{estado}, {pais}, CEP: {cep}"
+        endereco = f"{logradouro}, {numero}, {complemento}, {bairro}, {cidade}-{estado}, {pais}, CEP: {cep[:5]}-{cep[5:]}"
         st.success(f"Confirme o endereço: {endereco.upper()}")
 
     #valor da mensalidade
@@ -210,8 +204,14 @@ elif st.session_state.etapa == 2:
     with colassociar:
         if st.button("**Me tornar um Associado**", type="primary", use_container_width=True):
             novo_associado = [st.session_state.nome, st.session_state.cpf, st.session_state.data_nascimento, st.session_state.telefone, st.session_state.email, st.session_state.endereco, st.session_state.valor, st.session_state.data_pagamento, st.session_state.forma_pagamento]
-            associados.append_row(novo_associado)
+            try:
+                cpf_encontrado = associados.find(st.session_state.cpf)
+                linha_encotrada = cpf_encontrado.row
+                associados.update(f"A{linha_encotrada}:I{linha_encotrada}", [novo_associado])
+            except gspread.exceptions.CellNotFound:
+                associados.append_row(novo_associado)
             st.session_state.etapa=3
+            st.rerun
 
 elif st.session_state.etapa == 3:
     st.title(f"Parabéns {st.session_state.nome}🎉. Você acaba de se tornar um Associado da Mãe do Infinito Amor")
@@ -380,8 +380,14 @@ elif st.session_state.etapa == 5:
     with colassociar:
         if st.button("**Me tornar um Associado Mirim**", type="primary", use_container_width=True):
             novo_associado = [st.session_state.nome, st.session_state.cpf, st.session_state.data_nascimento, st.session_state.nome_resp, st.session_state.cpf_res, st.session_state.telefone, st.session_state.email, st.session_state.endereco]
-            mirim.append_row(novo_associado)
+            try:
+                cpf_encontrado_mirim = mirim.find(st.session_state.cpf)
+                linha_encotradam = cpf_encontrado_mirim.row
+                mirim.update(f"A{linha_encotradam}:H{linha_encotradam}", [novo_associado])
+            except gspread.exceptions.CellNotFound:
+                mirim.append_row(novo_associado)
             st.session_state.etapa=3
+            st.rerun
 
 
     
