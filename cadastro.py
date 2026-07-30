@@ -139,7 +139,7 @@ if st.session_state.etapa == 1:
         cep=st.text_input("CEP (Digite apenas números):", max_chars=8)
 
     if logradouro and numero and bairro and cidade and estado and pais and cep:
-        endereco = f"{logradouro}, {numero}, {complemento}, {bairro}, {cidade}-{estado}, {pais}, CEP: {cep}"
+        endereco = f"{logradouro}, {numero}, {complemento}, {bairro}, {cidade}-{estado}, {pais}, CEP: {cep[:5]}-{cep[5:]}"
         st.success(f"Confirme o endereço: {endereco.upper()}")
 
     #valor da mensalidade
@@ -340,7 +340,7 @@ elif st.session_state.etapa == 4:
         cep=st.text_input("CEP (Digite apenas números):", max_chars=8)
 
     if logradouro and numero and bairro and cidade and estado and pais and cep:
-        endereco = f"{logradouro}, {numero}, {complemento}, {bairro}, {cidade}-{estado}, {pais}, CEP: {cep}"
+        endereco = f"{logradouro}, {numero}, {complemento}, {bairro}, {cidade}-{estado}, {pais}, CEP: {cep[:5]}-{cep[5:]}"
         st.success(f"Confirme o endereço: {endereco.upper()}")
 
     #botão avançar
