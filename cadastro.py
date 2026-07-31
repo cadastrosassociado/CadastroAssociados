@@ -41,7 +41,7 @@ st.markdown(
 
 if "etapa" not in st.session_state:
     st.session_state.etapa = 1
-
+#Cadstro Adulto
 if st.session_state.etapa == 1:
     #titulo
     st.title("Cadastro Associado Mãe do Infinito Amor")
@@ -182,7 +182,7 @@ if st.session_state.etapa == 1:
         st.session_state.forma_pagamento = forma_pagamento.upper()
         st.session_state.etapa = 2
         st.rerun()
-
+#Confimação Adulto
 elif st.session_state.etapa == 2:
     st.title("Confirmação de Dados do Associado")
     st.subheader("Por favor, confirme os dados informados:")
@@ -213,10 +213,10 @@ elif st.session_state.etapa == 2:
             st.session_state.etapa=3
             st.balloons()
             st.rerun()
-
+#Parabens
 elif st.session_state.etapa == 3:
     st.title(f"Parabéns {st.session_state.nome}🎉. Você acaba de se tornar um Associado da Mãe do Infinito Amor")
-
+#Cadastro Infantil
 elif st.session_state.etapa == 4:
     #titulo
     st.title("Cadastro Associado Mirim")
@@ -343,6 +343,9 @@ elif st.session_state.etapa == 4:
         endereco = f"{logradouro}, {numero}, {complemento}, {bairro}, {cidade}-{estado}, {pais}, CEP: {cep[:5]}-{cep[5:]}"
         st.success(f"Confirme o endereço: {endereco.upper()}")
 
+    #Aviso
+    st.subheader("Retire o cofrinho na Associação dos Devotos Mãe do Infinito Amor (Rua Júlio César, 245, Centro, Itaperuna-RJ) ou faça a contribuição voluntária pelo PIX (CNPJ: 38.048.801/0001-08)")
+
     #botão avançar
     if st.button(
             "**Avançar**",
@@ -360,7 +363,7 @@ elif st.session_state.etapa == 4:
         st.session_state.endereco = endereco.upper()
         st.session_state.etapa=5
         st.rerun()
-
+#Confirmação Infantil
 elif st.session_state.etapa == 5:
     st.title("Confirmação de Dados do Associado Mirim")
     st.subheader("Por favor, confirme os dados informados:")
